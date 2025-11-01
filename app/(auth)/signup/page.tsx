@@ -1,5 +1,5 @@
 import SignupForm from "@/components/ui/auth/signup-form";
-function Signin(){
+function Signup(){
     return (
         <div>
             <SignupForm/>
@@ -7,4 +7,4 @@ function Signin(){
     )
 }
 
-export default Signin;
+export default Signup;

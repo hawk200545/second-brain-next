@@ -1,9 +1,8 @@
-'use client';
-
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { Inter } from "next/font/google";
-import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card";
+import Socials from "@/components/ui/auth/socials"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -16,11 +15,13 @@ type SigninLayoutProps = Readonly<{ children: ReactNode }>;
 export default function SigninLayout({ children }: SigninLayoutProps) {
   return (
     <div className={cn("flex justify-center items-center py-12")}>
-      <Card className={cn("max-w-[500px] min-w-[350px] shadow-2xl", inter.className)}>
+      <Card className={cn("max-w-[500px] min-w-[350px] shadow-2xl bg-white/60 dark:bg-black/60 backdrop-blur-sm backdrop-invert", inter.className)}>
         <CardHeader className="text-xl font-semibold">
           Tap into the world of second brain.
         </CardHeader>
         <CardContent>{children}</CardContent>
+        
+        <CardFooter><Socials/></CardFooter>
       </Card>
     </div>
   );

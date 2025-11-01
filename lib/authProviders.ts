@@ -1,5 +1,6 @@
 import type { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import argon2 from "argon2";
@@ -7,8 +8,11 @@ import { prisma } from "@/prisma/prisma";
 
 const googleClientId = process.env.GOOGLE_CLIENT_ID;
 const googleClientSecret = process.env.GOOGLE_CLIENT_SECRET;
+const githubClientId = process.env.GITHUB_CLIENT_ID;
+const githubClientSecret = process.env.GITHUB_CLIENT_SECRET;
 
-if (!googleClientId || !googleClientSecret) {
+
+if (!googleClientId || !googleClientSecret || !githubClientId || !githubClientSecret) {
   throw new Error("Missing Google OAuth environment variables");
 }
 
@@ -67,6 +71,10 @@ export const authProviders: NextAuthOptions = {
       clientId: googleClientId,
       clientSecret: googleClientSecret,
     }),
+    GithubProvider({
+      clientId: githubClientId,
+      clientSecret: githubClientSecret
+    })
   ],
   secret: process.env.NEXTAUTH_SECRET,
 };

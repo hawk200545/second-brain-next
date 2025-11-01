@@ -4,6 +4,9 @@ import {useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { signIn } from "next-auth/react";
+import {toast} from "sonner";
+import { useRouter } from "next/navigation";
 import {
   Form,
   FormControl,
@@ -16,6 +19,7 @@ import { Input } from "@/components/ui/input";
 import { SigninSchema } from ".";
 
 function SigninForm(){
+  const router = useRouter();
   const form = useForm<z.infer <typeof SigninSchema>>({
     resolver : zodResolver(SigninSchema),
     defaultValues: {
@@ -24,9 +28,21 @@ function SigninForm(){
     },
   })
 
-  const onSubmit = (values: z.infer<typeof SigninSchema>) => {
-    console.log("Hi", values)
+  const onSubmit = async (values: z.infer<typeof SigninSchema>) => {
+    const res = await signIn("credentials", {
+    email: values.email,
+    password: values.password,
+    redirect: false,
+  });
+
+  if (res?.ok) {
+      toast.success("Signin Successfull");
+      router.push('/');
   }
+  else{
+    toast.error(res?.error ?? "Invalid Credentials");
+  }
+  } 
   return (
       <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}  className={cn("space-y-4")}>

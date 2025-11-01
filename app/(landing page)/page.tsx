@@ -1,6 +1,8 @@
 import { BackgroundRippleEffect } from "@/components/ui/backround-ripple-effect";
-
-export default function Home(){
+import { getServerSession } from "next-auth";
+export default async function Home(){
+    const session =  await getServerSession();
+    console.log(session?.user);
     return (
         <div className="relative flex min-h-screen w-full flex-col items-start justify-start overflow-hidden">
             <BackgroundRippleEffect rows={35} cols={35} />
