@@ -5,6 +5,7 @@ import {zodResolver} from '@hookform/resolvers/zod';
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import {
   Form,
   FormControl,
@@ -18,6 +19,7 @@ import { SignupSchema } from ".";
 import { toast } from "sonner";
 
 function SignupForm(){
+  const router = useRouter();
   const form = useForm<z.infer <typeof SignupSchema>>({
     resolver : zodResolver(SignupSchema),
     defaultValues: {
@@ -39,12 +41,22 @@ function SignupForm(){
 
     if (response.ok) {
       toast.success("Signup Success");
-      await signIn("credentials", {
+      const res = await signIn("credentials", {
         email: values.email,
         password: values.password,
-        redirect: true,
+        redirect: false,
         callbackUrl: "/",
       });
+      if (res?.ok) {
+        if (res.url) {
+          router.replace(res.url);
+        } else {
+          router.replace("/");
+        }
+        router.refresh();
+      } else if (res?.error) {
+        toast.error(res.error);
+      }
     } else {
       const data =  await response.json();
       toast.error(data.error || "Error while signing up");

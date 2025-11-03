@@ -18,6 +18,9 @@ if (!googleClientId || !googleClientSecret || !githubClientId || !githubClientSe
 
 export const authProviders: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
+  session: {
+    strategy: "database",
+  },
   providers: [
     CredentialsProvider({
       name: "Credentials",

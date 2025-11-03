@@ -3,6 +3,8 @@ import {cn} from "@/lib/utils";
 import {Button} from '@/components/ui/button';
 import { ModeToggle } from "./themeButton";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import secondBrain from "@/public/second-brain.svg"
 export default function LandingHeader(){
     const router = useRouter();
     return (
@@ -11,7 +13,10 @@ export default function LandingHeader(){
                 "backdrop-blur-sm border border-slate-950/5 dark:border-slate-50/5 shadow-2xs"
             )}>
                 <div className={cn("flex justify-between items-center")}>
-                     <h3 className={cn("text-xl font-bold",)}>Second Brain</h3>
+                     <div className="flex gap-x-3 items-center">
+                        <Image src={secondBrain} alt="Second-Brain" width={50} className="-m-2 dark:filter-[invert(1)]"/>
+                        <h3 className={cn("text-xl font-bold",)}>Second Brain</h3>
+                     </div>
                     <div className={cn("space-x-2 flex h-full")}>
                         <ModeToggle  />
                         <Button size="default" variant={"secondary"} onClick={()=>router.push('/signin')}>

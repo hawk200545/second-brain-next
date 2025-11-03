@@ -33,11 +33,17 @@ function SigninForm(){
     email: values.email,
     password: values.password,
     redirect: false,
+    callbackUrl: "/",
   });
 
   if (res?.ok) {
       toast.success("Signin Successfull");
-      router.push('/');
+      if (res.url) {
+        router.replace(res.url);
+      } else {
+        router.replace("/");
+      }
+      router.refresh();
   }
   else{
     toast.error(res?.error ?? "Invalid Credentials");

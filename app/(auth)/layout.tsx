@@ -2,7 +2,8 @@ import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 type AuthLayoutProps = Readonly<{ children: ReactNode }>;
 
-export default function AuthLayout({ children }: AuthLayoutProps) {
+export default async function AuthLayout({ children }: AuthLayoutProps) {
+
   return (
     <>
       <svg width="0" height="0" className="pointer-events-none absolute">

@@ -7,12 +7,12 @@ function Socials() {
   return (
     <div className={cn("flex w-full items-center gap-4")}>
       <Button
-        className="flex-1 gap-2 items-center py-5"
+        className="flex-1 gap-2 items-center"
         variant="outline"
         onClick={() => signIn("google")}
       >
         <FaGoogle className="h-4 w-4" aria-hidden="true" />
-        <span className="pt-1">Continue with Google</span>
+        <span className="">Continue with Google</span>
       </Button>
       <Button
         className="flex-1 gap-2 py-5"
@@ -20,7 +20,7 @@ function Socials() {
         onClick={() => signIn("github")}
       >
         <FaGithub className="h-4 w-4" aria-hidden="true" />
-        <span className="pt-1">Continue with GitHub</span>
+        <span className="">Continue with GitHub</span>
       </Button>
     </div>
   )
